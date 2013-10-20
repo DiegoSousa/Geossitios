@@ -1,0 +1,143 @@
+
+/*-------------------Tela Completa---------------*/
+
+#map_canvas{/*mapa Gmaps*/                      
+    width:1366px; 
+    height:559px;
+    bottom:-1px;      
+}
+
+#filtroDropDown{
+    position: absolute;
+    margin-top: 30px;  
+    margin-left: 870px;
+}
+
+#plvFiltro{
+   position: absolute; 
+   margin-top: 10px;
+   margin-left: 921px;
+  font-size: 13px;
+  font-weight: bolder;
+  color: black;
+}
+
+#plvSobre{
+   position: absolute; 
+   margin-top: 10px;
+   margin-left: 1075px;
+   font-size: 13px;
+   font-weight: bolder;
+   color: black;
+}
+
+#sobreDropDown{
+  position: absolute;
+  margin-top: 30px;        
+  margin-left: 1020px;     
+}
+
+#plvLogin{
+   position: absolute; 
+   margin-top: 4px;
+   margin-left: 1270px;
+   font-size: 13px;
+   font-weight: bolder;
+   color: crimson;
+}
+
+#formLogim{
+
+}
+
+#campoLogin{   
+    margin-left: 1210px;    
+    margin-top: 22px;
+}
+
+#campoSenha{    
+    margin-left: 1210px;    
+    margin-top: 5px;
+}
+
+#botaoEntrarLogin{          
+    margin-left: 1310px;
+    margin-top: 8px;
+}
+
+#imagemTopo{            
+    background: url(http://dl.dropbox.com/u/9338682/Repositorio%20de%20Vers%C3%B5es%20finais%20geossitios/geossitio-v1.4/images/ImagemTop2.png) repeat-x;
+    width:1366px; 
+    height: 95px;
+    top: 0px;             
+}
+
+#imagemLCG{
+    position: absolute;
+    height: 85px;
+    margin-top: -88px;
+    margin-left: 110px;    
+}
+
+#imagemUFPB{    
+    margin-top: -88px;
+    margin-left: 7px;    
+    height: 85px;
+    position: absolute;
+}
+
+#barra_Esquerda {
+    background: url(http://dl.dropbox.com/u/9338682/Repositorio%20de%20Vers%C3%B5es%20finais%20geossitios/geossitio-v1.4/fotos/barraLateral.gif) no-repeat;
+    position: absolute;
+    width: 212px; 
+    height: 639px;
+    right: -3px;
+    top: 0px;
+    z-index: 1;
+}
+
+#Map_de_Visitas {    
+    position: absolute;
+    right: 11px;
+    bottom: 60px; 
+    z-index: 2;
+}
+
+/*-------------------Fim Tela Completa---------------*/
+
+
+/*-------------------Componentes InfoWindow---------------*/
+.a.lightbox img { 
+height: 70px 
+}
+
+#tituloInfoWindow {
+    text-align: center;
+    color: maroon;
+    font-size: large;
+    font-weight: 900;
+    text-transform: none;
+}
+#textInfoWindow{
+    color:darkgreen;
+    font-size: 13px;
+    font-style:oblique;
+    font-weight: 600;
+    text-transform: none;
+    text-align: justify;
+}
+
+#imagemInfoWindow{
+    height: 168px;
+    width: auto;
+    padding: 1px;
+    border: 1px solid #9FA41D;    
+}
+
+#saibaMaisInfoWindow{
+ color: #808000;
+ font-weight: 800;
+}
+
+/*-------------------Fim componentes InfoWindow---------------*/
+

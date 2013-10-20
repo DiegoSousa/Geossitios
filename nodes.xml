@@ -1,0 +1,40 @@
+
+<region> 
+    <map desc="Pontos Turisticos de Joao Pessoa" lat="-7.247787" lng="-36.485441" />
+
+    <local id="0" nome="Pedra da Tartaruga" desc="Os processos intempéricos atribuíram ao bloco o aspecto semelhante ao de uma tartaruga, derivando daí o nome do local. Este geossítio é constituído por um afloramento rochoso que apresenta uma densa rede de fraturas estreitas que propiciam a concentração das águas pluviais que, ao escoarem sobre a rocha, geram caneluras devido à presença de ácidos orgânicos e/ou húmicos oriundos da decomposição de vegetais que encontram na rocha um substrato para seu desenvolvimento. Atua, ainda, o intemperismo físico causando a desagregação mecânica da rocha, individualizando-a em blocos menores, podendo até mesmo causar o deslocamento de alguns deles, que se depositam na base do afloramento. " municipio="" site="http://www.google.com.br"  video="http://www.youtube.com" lat="-7.273610752" lng="-36.45884379" fav="0">
+        <image id="0" desc="Pedra da Tartaruga" file="fotos/tartaruga01.jpg" />
+        <image id="1" desc="Pedra da Tartaruga" file="fotos/tartaruga02.jpg" />
+    </local>
+
+    <local id="1" nome="Pedra do Pascácio" desc="Afloramento de rocha metamórfica, que ocupa uma área de cerca de 1500 m2 e apresenta abrigos naturais e outros possivelmente gerados pelo deslocamento de blocos devido à atividade de extração de material para construção civil que ali foi executada, mas que já foi desativada, fazendo com que os impactos que foram gerados no ambiente sejam pouco visíveis atualmente, pois a atividade não ocorreu de forma tão expressiva. Os processos intempéricos que ocorreram ao longo do tempo atribuíram ao afloramento a geoforma semelhante a um bicho preguiça." municipio="" site=""  video="" lat="-7.2342453" lng="-36.54353741" fav="0">
+        <image id="0" desc="Pedra do Pascácio" file="fotos/pascacio01.jpg" />
+        <image id="1" desc="Pedra do Pascácio" file="fotos/pascacio02.jpg" />
+    </local>
+
+    <local id="2" nome="Lagoa de Pedra" desc="Área levemente deprimida do terreno em relação ao seu entorno, com cerca de 25.000 m2, para onde drenam as águas de chuva, que ali se acumulam. Os solos são bastante argilosos, sendo recobertos, nas áreas úmidas, por uma vegetação de gramíneas. Podem ser identificadas algumas espécies que ocorrem em abundância, tais como a vitória-régia (Victoria sp.), e outras espécies típicas de campos úmidos." municipio="" site=""  video="" lat="-7.202948489" lng="-36.47267258" fav="0">
+        <image id="0" desc="Lagoa de Pedra" file="fotos/Lagoa de Pedra01.jpg" />
+        <image id="1" desc="Vista geral do geossítio Lagoa de Pedra. Dique e área levemente deprimida e ocorrência de vitória-régia (Victoria sp.)" file="fotos/Lagoa de Pedra02.jpg" />
+    </local>
+	
+    <local id="3" nome="Cruzeiro" desc="Geossítio de importância histórica podendo ser utilizado como ponto de visitação para turistas interessados nessa vertente do turismo, no entanto, necessita de uma atenção maior voltada a sua conservação, uma vez que, por estar na área urbana, fica mais propício a sofrer impactos. Observa-se que houve uma intervenção no local, possivelmente pela administração municipal, pintando-se parte da rocha de branco, descaracterizando o ambiente natural." municipio="" site=""  video="" lat="-7.244077773" lng="-36.49282952" fav="0">
+        <image id="0" desc="Cruzeiro" file="fotos/cruzeiro.jpg" />        
+    </local>
+        
+    <local id="4" nome="Serrota Preta" desc="Apresenta como atrativo o afloramento de rocha basáltica rica em ferro, com a presença bastante freqüente de geodos ou drusas quartzosas, algumas vezes em forma de lâminas. Estes geodos são compostos basicamente por cristais de silicatos e que, com a abundância na ocorrência desses materiais, agrega valor a este geossítio uma vez que possibilita a coleta de amostras para estudos científicos. Outro aspecto interessante do local foi a identificação de amostras de madeira silicificada ou fossilizada, sobre as quais ainda não se haviam relatos entre a comunidade local." municipio="" site=""  video="" lat="-7.221889513 " lng="-36.48512262" fav="0">
+        <image id="0" desc="Serrota Preta" file="fotos/serrota02.jpg" />
+        <image id="1" desc="Serrota Preta" file="fotos/serrota01.jpg" />
+    </local>
+        
+    <local id="5" nome="Praia Deserta" desc="Neste sítio geológico ocorrem afloramentos rochosos de natureza granítica, e supostamente, a existência de inscrições rupestres do tipo Itacoatiaras, ainda não confirmada até o momento. Estão presentes na parte inferior da rocha, representações bastante semelhantes a itacoatiras, que em Tupi Guarani, significa pedra riscada (ita= pedra e cuatiara= risco, desenho). São grafias inscritas nas rochas, como forma de comunicação ou registro, realizadas por antigos povos indígenas e constituem uma rica fonte de informações sobre estas sociedades." municipio="" site=""  video="" lat="-7.309116005" lng="-36.50777307" fav="0">
+        <image id="0" desc="Praia Deserta" file="fotos/praia deserta01.jpg" />
+        <image id="1" desc="Praia Deserta" file="fotos/praia deserta02.jpg" />
+    </local>
+    
+    <local id="6" nome="Açude José Borges" desc="Está inserido no perímetro urbano de Gurjão, nas coordenadas -7º 14” 53’ latitude sul e -36º 29’ 4” longitude oeste. Ocorre aí um afloramento intrusão no gnaisse do tipo dique granítico afanítico leucocrático, onde houve o preenchimento discordante de minerais. É um geossítio de importância didática para o entendimento de processos geológicos que dão origem a diques, ou seja, as características geomorfológicas que condicionaram a modificação da paisagem local tornam este geossítio atrativo tanto para a comunidade científica como para apreciação de turistas." municipio="" site=""  video="" lat="-7.248682724" lng="-36.49368353" fav="0">
+        <image id="0" desc="Açude José Borges, maio de 2011" file="fotos/acude Jose Borges02.jpg" />
+        <image id="1" desc="Dique presente na área de alagamento do açude José Borges" file="fotos/acude Jose Borges01.jpg" />        
+    </local>
+    
+</region>
+ 

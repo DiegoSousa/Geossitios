@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <!-- @Author Diego - WWW.diegosousa.com -->
+
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title>Geossitios-UFPB</title>
+
+        <!--______________Begin Imports general_______________-->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript" src="js/util.js"></script>
+        <!--<script type="text/javascript" src="js/map.js"></script>-->
+        <!--______________End Imports general_______________-->        
+
+        <!--______________Begin Imports css_______________-->
+        <link href="css/screen.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="css/geossitios.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="css/lightbox.css" rel="stylesheet" type="text/css" media="screen"/>
+        <!--______________End Imports css_______________-->
+
+        <!--______________Begin Imports do SlideShow_______________-->
+        <script type="text/javascript" src="js/prototype.js" ></script>
+        <script type="text/javascript" src="js/effects.js"></script>
+        <script type="text/javascript" src="js/builder.js"></script>
+        <script type="text/javascript" src="js/lightbox.js"></script>
+        <!--______________End Imports do SlideShow_______________-->        
+
+
+        <script type="text/javascript">
+            var mapCenter;
+            var infowindow;
+            var map;
+            var locais = new Array();
+            var numLocais = 0;
+            var listMarkers = new Array();   
+            var numMarkers=0;
+            var fotoSaibaMaisSlide;
+            var fotoSaibaMaisInfoWindows;         
+            var filtroContent = '<select onChange="selecaoFiltro(this)">' +
+                '<option selected> - Selecione o local - </option>';
+            
+            function Imagem(){
+                this.id = 0;
+                this.desc;
+                this.file;
+            }
+                        
+            function Local(){
+                this.id = 0;
+                this.nome;
+                this.desc;
+                this.latlng;
+                this.fav;
+                this.marker;
+                this.imagens = new Array();
+                this.numImagens = 0;
+                this.site;
+                this.video;               
+                this.imagemLightboxInfoWindow;
+                this.imagemLightboxSlide;
+                this.content;
+            }
+                            
+            function initialize() {
+                var myOptions = {
+                    zoom: 12,
+                    mapTypeId: google.maps.MapTypeId.TERRAIN,
+                    panControl: false,//bola de movimentação do mapa
+                    mapTypeControl: true,//tipo de mapa, terr
+                    overviewMapControl: true,//preview do mapa
+                    streetViewControl: false,//boneco de visualização apurada(fica em cima do zoom)
+                    zoomControlOptions: {
+                        style:google.maps.ZoomControlStyle.SMALL
+                    },        
+                    overviewMapControlOptions: {//pequeno map visualizador        
+                        opened: true,
+                        position: google.maps.ControlPosition.TOP_RIGHT//NÃO TA FUNCIONANDO
+                    },
+                    mapTypeControlOptions: {//opções do controle de tipo de mapa, terrain, satelit..
+                        position: google.maps.ControlPosition.TOP_LEFT, 
+                        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                    },
+                    navigationControlOptions: {//opções do control zoom
+                        position: google.maps.ControlPosition.LEFT_TOP        
+                    }
+      
+                }
+                                
+                map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                
+                downloadUrl("nodes.xml", function(data) {
+                    var center = data.documentElement.getElementsByTagName("map");
+                    mapCenter = new google.maps.LatLng(parseFloat(center[0].getAttribute("lat")),
+                    parseFloat(center[0].getAttribute("lng")));//
+                    map.setCenter(mapCenter);
+
+                    var markers = data.documentElement.getElementsByTagName("local");//conjunto de tags locais
+                    
+                    for (var i = 0; i < markers.length; i++) {//for que percorre as tags locais                        
+                        //----------Setando os atributos da Tag local------------
+                        var l = new Local();                        
+                        l.latlng = new google.maps.LatLng(parseFloat(markers[i].getAttribute("lat")),parseFloat(markers[i].getAttribute("lng")));
+                        l.nome = markers[i].getAttribute("nome");
+                        l.desc = markers[i].getAttribute("desc");
+                        l.fav = markers[i].getAttribute("fav");
+                        l.video = markers[i].getAttribute("video");
+                        l.site = markers[i].getAttribute("site");
+                        l.imagemLightboxSlide = '';//zerando o atributo
+                        fotoSaibaMaisInfoWindows = '';//zerando o atributo
+                        fotoSaibaMaisSlide = '';//zerando o atributo
+                        var extras = '';//Atributos do SaibaMais - foto, video e sites                                                                                                                  
+                        //tagImagem irá guarda todas as tag image que está dentro de cada local(markers).
+                        var tagImagem = markers[i].getElementsByTagName("image");                       
+
+                        for(var j=0; j < tagImagem.length;j++){//for que percorre as tags image de cada tag local.
+                            //----------Setando os atributos da Tag image------------
+                            var imagem = new Imagem();                            
+                            imagem.id = tagImagem[j].getAttribute("id");
+                            imagem.file = tagImagem[j].getAttribute("file");
+                            imagem.desc = tagImagem[j].getAttribute("desc");                            
+                            
+                            if(l.fav == imagem.id){//Condição para setar a imagem do infoWindow e a primeira imagem do Slide
+                                
+                                l.imagemLightboxInfoWindow = '<a href="'+ imagem.file + '" rel="lightbox[geo"'+ l.id + '"]"  title="'+ imagem.desc + '">'//imagem inicial slideshow + 1° imagem infowindow
+                                    + '<img src="'+ imagem.file +'" id="imagemInfoWindow" title="Clique aqui para ver mais fotos!"/></a>';//imagens slideshow
+                                //imagens do SaibaMaisFotos para infoWindow   
+                                fotoSaibaMaisInfoWindows = '<a href="'+ imagem.file + '" rel="lightbox2[ge"'+ l.id + '"]" title="'+ imagem.desc + '">'//imagem inicial slideshow + 1° imagem infowindow
+                                    + '<img src="icon/foto.png" alt="Mais fotos" title="Foto Relacionada"/></a>'//imagens slideshow
+                               
+                            }else{
+                                l.imagemLightboxSlide += '<a href="'+ imagem.file + '" rel="lightbox[geo"'+ l.id + '"]" title="'+ imagem.desc + '"></a>'
+                                //imagens do do SaibaMaisFotos para o Slide
+                                fotoSaibaMaisSlide += '<a href="'+ imagem.file + '" rel="lightbox2[ge"'+ l.id + '"]" title="'+ imagem.desc + '"></a>'
+                            }
+                            //apenas um contador, não usado ainda.
+                            l.imagens[l.numImagens] = imagem;
+                            ++l.numImagens;
+                        }                         
+                        //String que concatena tos os dados de cada geositio.
+                        l.content = '<div><div id="tituloInfoWindow">'+ l.nome +'</div><br>'+//titulo do infowindow
+                        '<table>'+
+                            '<td>'+ l.imagemLightboxInfoWindow + l.imagemLightboxSlide +'</td>'+//imagem do infowindow
+                        '<td>" "</td>'+//espaço entre a foto e o texto
+                        '<td><div id=textInfoWindow>'+ l.desc+'</div></td>'+//descrição do infowindow
+                        '</table></div>';                                                                                                                                             
+                        
+                        //Bloco que será criado os extras(SaibaMais) de cada InfoWindow
+                        extras = fotoSaibaMaisInfoWindows + fotoSaibaMaisSlide;//FotosExtra
+                        
+                        if((l.site != "") && (l.site != null)){
+                            //target=\"_blank\" - ao clicar em site ou video abre uma nova pagina. sem ele carregaria o link na pagina geossitio
+                            extras += '<a href="'+ l.site + '" target=\"_blank\">'
+                                +'<img src="icon/site.png" title="site relacionado"></a>';
+                        }
+                        
+                        if((l.video != "") && (l.video != null)){
+                            extras += '<a href="'+ l.video + ' "target=\"_blank\">'
+                                +'<img src="icon/video.png" title="video relacionado"></a>';
+                        }
+                              
+                        if (extras != ""){
+                            l.content += '<div id="saibaMaisInfoWindow"> Saiba mais:</div>' + extras;
+                        }                       
+                        //vetor de todos os locais
+                        locais[numLocais] = l;
+                        ++numLocais;                                                                   
+                    }                                  
+                    
+                    for(var i = 0; i< numLocais; ++i){                                                
+                        l.marker = createMarker(locais[i].content, locais[i].latlng);                        
+                    }    
+                    //concatenação do filtro dos locais
+                    filtroContent += '</select>';
+                    document.getElementById("filtroDropDown").innerHTML = filtroContent;
+                });
+                     
+            }
+                             
+               
+            function createMarker(cont, latlng) {
+                
+                var marker = new google.maps.Marker({
+                    position: latlng, 
+                    map: map,
+                    animation: google.maps.Animation.DROP//BOUNCE - o marker fica pulando
+                });
+
+                google.maps.event.addListener(marker, "click", function() {
+                    if (infowindow) infowindow.close();
+                    createInfoWindow(cont, marker);
+                });
+                
+                listMarkers[numMarkers]=marker;//salva os marcadores                             
+                filtroContent += '<option> ' + locais[numMarkers].nome + '</option>';
+                numMarkers++;//contador dos marcadores      
+                
+                return listMarkers[numMarkers-1];
+            }
+
+            function createInfoWindow(cont, marker){
+                infowindow = new google.maps.InfoWindow({
+                    content: cont
+                });
+                infowindow.open(map, marker);
+            }
+            
+            function selecaoFiltro(opt) {
+                var i = opt.selectedIndex - 1; //
+                if (i > -1) {
+                    google.maps.event.trigger(listMarkers[i],"click");//evento personalizado no objeto da vez
+                }
+                else {
+                    listMarkers[i].infowindow.close();
+                    //map.closeInfoWindow();
+                }
+            }
+                
+            function clearMarkers() {//apagar os marcadores.
+                for (var i = 0; i < listMarkers.length; i++) {
+                    if (listMarkers[i]) {
+                        listMarkers[i].setMap(null);
+                        listMarkers[i] == null;
+                    }
+                }
+            }
+            
+        </script>
+    </head>
+
+    <body onload="initialize()">
+        <!--Função para abrir uma url ao escolher uma opção do drop-down-->
+        <script language="javascript">
+            function abrir(){
+                url=document.formarquivo.arquivo.options[document.formarquivo.arquivo.selectedIndex].value; 
+                janela=window.open(url,"janela","");
+            }
+        </script>
+
+        <div id="imagemTopo">    
+            
+            <p id="plvSobre">Saiba +</p>
+            <form name="formarquivo" id="sobreDropDown">
+                <select name="arquivo" onChange="abrir()">                
+                    <option selected> - Sobre - </option>
+                    <option value="http://geodiversidadepb.blogspot.com/"> - Blog Geodiversidades - </option>                
+                    <option value="http://www.youtube.com/embed/WT29_VFd5Ok"> - Equipe - </option>                                
+                </select>
+            </form>
+            
+            <p id="plvFiltro">Filtro</p>
+            <div id="filtroDropDown"></div> 
+            
+            <p id="plvLogin">Área restrita</p>
+            <form id="formLogim"action="http://dl.dropbox.com/u/9338682/Repositorio%20de%20Vers%C3%B5es%20finais%20geossitios/geossitio-v1.4/formularioCadastro.html">                                
+                <input id="campoLogin" type="text" size="16px" value="admin"/>
+                <input id="campoSenha"type="password" size="16px" value="admin"/><br/>
+                <input id="botaoEntrarLogin" type="submit" value="Entrar" onclick="PossivelFuncaoDeValidadacao()"/>
+            </form>
+
+            <div>
+                <a href="http://www.ufpb.br/" target="_blank">
+                    <img id="imagemUFPB" src="http://dl.dropbox.com/u/9338682/Repositorio%20de%20Vers%C3%B5es%20finais%20geossitios/geossitio-v1.4/images/ufpb.png"/>                        
+                </a>
+            </div>
+
+            <div>
+                <img id="imagemLCG" src="http://dl.dropbox.com/u/9338682/Repositorio%20de%20Vers%C3%B5es%20finais%20geossitios/geossitio-v1.4/images/logoLcg.png"></img>
+            </div>
+
+        </div>        
+
+        <div id="map_canvas"></div>   
+
+        <!--<a id="list" href="javascript: clearMarkers();">Clear Markers...</a>   chamada do metodo para limpar os marcadores  -->
+        <!--        <div id="barra_Esquerda">            
+                    <div id="Map_de_Visitas">
+                        <script type="text/javascript" src="http://ja.revolvermaps.com/p.js"></script>
+                        <script type="text/javascript">rm2d_ki101('0','190','128','04llni0ntjt','ff8a00',40);</script>
+                    </div>
+                </div>-->
+    </body>
+
+
+</html>
+
